@@ -1,0 +1,24 @@
+﻿<CascadingAuthenticationState>
+    <Router AppAssembly="@typeof(App).Assembly">
+        <Found Context="routeData">
+            <AuthorizeRouteView RouteData="@routeData" 
+                                DefaultLayout="@typeof(MainLayout)">
+                <NotAuthorized>
+                    <h1>Üzgünüm</h1>
+                    <p>Bu sayfaya erişmeye yetkiniz yoktur.</p>
+                    <p>Farklı bir kullanıcı olarak oturum açmanız gerekebilir.</p>
+                </NotAuthorized>
+                <Authorizing>
+                    <h1>Yetkilendirme devam ediyor.</h1>
+                    <p>Bu içerik sadece yetkilendirme devam ederken görüntülenir.</p>
+                </Authorizing>
+            </AuthorizeRouteView>
+        </Found>
+        <NotFound>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <h1>Üzgünüm</h1>
+                <p>Bu adreste bir içerik bulunamadı.</p>
+            </LayoutView>
+        </NotFound>
+    </Router>
+</CascadingAuthenticationState>

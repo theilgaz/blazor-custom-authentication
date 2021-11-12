@@ -1,0 +1,20 @@
+@page "/"
+@using BlazorCustomAuthentication.Data
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<PageTitle>Index</PageTitle>
+ 
+<AuthorizeView>
+    <Authorized>
+        <h3>Hello, @context.User.Identity.Name!</h3>
+        <button @onclick="Logout">Logout</button>
+        <a href="/AuthorizedPage">Authorized Page Button</a>
+    </Authorized>
+    <NotAuthorized>
+        <h3>Authentication Failed!</h3>
+        <p>Sign in.</p>
+        <Login />
+    </NotAuthorized>
+</AuthorizeView>
+
+@code{ void Logout() => ((CustomAuthenticationStateProvider)AuthenticationStateProvider).MarkAsLoggedOut(); }

@@ -1,0 +1,45 @@
+﻿@page "/Login"
+@using Microsoft.AspNetCore.Components
+@using BlazorCustomAuthentication.Data
+@using Blazored.SessionStorage
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager UriHelper
+@inject ISessionStorageService SessionStorageService
+
+ <EditForm Model="@user" OnValidSubmit="DoLogin">
+    <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1"  @bind="user.Username">
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" @bind="user.Password">
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+    </EditForm>
+
+    @code {
+
+        private User user;
+
+        protected override Task OnInitializedAsync()
+        {
+            user = new User();
+            return base.OnInitializedAsync();
+        }
+
+        private async Task<bool> DoLogin()
+        {
+            // Call API
+            if (true)
+            {
+                ((CustomAuthenticationStateProvider)AuthenticationStateProvider).MarkAsAuthenticated(user.Username);
+                SessionStorageService.SetItemAsync("email", user.Username);
+                UriHelper.NavigateTo("/");
+                return await Task.FromResult(true);
+            }
+            return await Task.FromResult(false);
+        }
+
+    }
