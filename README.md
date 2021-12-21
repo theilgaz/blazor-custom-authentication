@@ -220,13 +220,15 @@ Güvenli çıkış yapılması durumunda kimliğinin silinmesini sağlayalım.
 **Startup.cs** için:
 
 ```
-    services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
+    services.AddScoped<CustomAuthenticationStateProvider, CustomAuthenticationStateProvider>();
+    services.AddScoped<AuthenticationStateProvider>(p => p.GetService<CustomAuthenticationStateProvider>());
 ```
 
 **Program.cs** için:
 
 ```
-    builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
+    builder.Services.AddScoped<CustomAuthenticationStateProvider, CustomAuthenticationStateProvider>();
+    builder.Services.AddScoped<AuthenticationStateProvider>(p => p.GetService<CustomAuthenticationStateProvider>());
 ```
 
 <a id="step3"></a>
