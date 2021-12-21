@@ -27,6 +27,7 @@ namespace BlazorCustomAuthentication.Data
 
         public void MarkAsAuthenticated(string email)
         {
+            _sessionStorageService.SetItemAsync("email", email);
             var identity = new ClaimsIdentity(new[]
             {
                 new Claim(ClaimTypes.Name, email)
@@ -38,7 +39,7 @@ namespace BlazorCustomAuthentication.Data
         public void MarkAsLoggedOut()
         {
             _sessionStorageService.RemoveItemAsync("email");
-            NotifyAuthenticationStateChanged(   
+            NotifyAuthenticationStateChanged(
                 Task.FromResult(new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()))));
         }
     }

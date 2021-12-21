@@ -1,0 +1,13 @@
+﻿@page "/ProfilePage"
+@attribute [Authorize]
+<h3>ProfilePage</h3>
+
+<AuthorizeView>
+<Authorized>
+    @context.User.Identity.Name
+</Authorized>
+</AuthorizeView>
+
+@code {
+
+}

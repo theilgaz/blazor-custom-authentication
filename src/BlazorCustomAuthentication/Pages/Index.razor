@@ -1,9 +1,9 @@
-@page "/"
+@page "/index"
 @using BlazorCustomAuthentication.Data
-@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject CustomAuthenticationStateProvider AuthenticationStateProvider
 
 <PageTitle>Index</PageTitle>
- 
+
 <AuthorizeView>
     <Authorized>
         <h3>Hello, @context.User.Identity.Name!</h3>
@@ -11,10 +11,10 @@
         <a href="/AuthorizedPage">Authorized Page Button</a>
     </Authorized>
     <NotAuthorized>
-        <h3>Authentication Failed!</h3>
+        <h3>You are not logged in.</h3>
         <p>Sign in.</p>
-        <Login />
+        <Login/>
     </NotAuthorized>
 </AuthorizeView>
 
-@code{ void Logout() => ((CustomAuthenticationStateProvider)AuthenticationStateProvider).MarkAsLoggedOut(); }
+@code{ void Logout() => AuthenticationStateProvider.MarkAsLoggedOut(); }
